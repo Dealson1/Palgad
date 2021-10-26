@@ -1,6 +1,6 @@
 from random import *
 inimesed = ["A", "B"]
-palgad = [1200,2000]
+palgad = [2000,2000]
 N = 4
 def sisesta_andmed(i,p):
     for n in range(N):
@@ -32,26 +32,49 @@ def kustutamine(i,p):
 #def suurim_palk(i,p):
     #surim=max(p)
     #count() for abi_leht p.index() ->i.index() andmed_ekranile(abi_list)
-def sorteerimine(i,p):
+def sorteerimine(i,p,v):
     N = len(p)
-    for n in range (0, N-1):
-        for m in range (1, N+1):
-            if p[n]<p[m]:
-                abi=p[n]
-                p[n]=p[m]
-                p[m]=abi
-                abi=i[n]
-                i[n]=i[m]
-                i[m]=abi
-            andmed_ekranile(i ,p)
+    if v == 1:
+        for n in range (0, N):
+            for m in range (n, N):
+                if p[n]<p[m]:
+                    abi=p[n]
+                    p[n]=p[m]
+                    p[m]=abi
+                    abi=i[n]
+                    i[n]=i[m]
+                    i[m]=abi
+    else:
+        for n in range (0, N):
+            for m in range (n, N):
+                if p[n]>p[m]:
+                    abi=p[n]
+                    p[n]=p[m]
+                    p[m]=abi
+                    abi=i[n]
+                    i[n]=i[m]
+                    i[m]=abi
+
+    andmed_ekranile(i ,p)
+def vordsed_palgad(i, p):
+    N = len(p)
+    dublikatid = [ x for x in palgad if palgad.count(x)>1 ]
+    print(list(set(dublikatid)))
+    #for n in range(0, N):
+        #for m in range(n, N):
+            #if = p[n]==p[m]:
 
 while 1:
-    valik=input("a - Ввод данных\ne -Показать данные \nk - Удаление\nmax - Cамая большая зарплата\n")
-    if valik.lower()=="a":
+    valik=input("a - Ввод данных\ne -Показать данные \nk - Удаление\ns - Сортировка\nv - Проверка одинаковой зарплат\n")
+    if valik.lower() == "a":
         inimesed,palgad=sisesta_andmed(inimesed,palgad)
-    elif valik.lower()=="e":
+    elif valik.lower() == "e":
         andmed_ekranile(inimesed,palgad)
-    elif valik=="k":
+    elif valik.lower() == "k":
         inimesed,palgad=kustutamine(inimesed,palgad)
+    elif valik.lower() == "s":
+        sorteerimine(inimesed, palgad, int(input("1 - Сортировка по убыванию.\n2 - Сортировка по возростанию.\n")))
+    elif valik.lower() == "v":
+        vordsed_palgad(inimesed, palgad)
     else:
         break
