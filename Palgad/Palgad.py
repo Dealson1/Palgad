@@ -1,6 +1,6 @@
 from random import *
-inimesed = ["A", "B", "C", "D", "E"]
-palgad = [3000, 3000, 1100, 1500, 2000]
+inimesed = ["A", "B", "C", "D"]
+palgad = [3000, 2000, 1000, 500]
 def sisesta_andmed(i,p):
     N = 4
     for n in range(N):
@@ -47,8 +47,9 @@ def minimum(i,p):
             i = palgad.index(min_palk)
             kellel = inimesed[i]
     print(f"Минимальную зарплату - {min_palk} получает - {kellel}.")
-def keskmine(p):
+def keskmine(i, p):
     summa = 0
+    t = False
     for palk in p:
         summa+=palk
     summa/=len(p)
@@ -56,9 +57,10 @@ def keskmine(p):
     for palk in p:
         if palk==summa:
             n=p.index(palk)
-            print(f"Получает: {i[n]}")
-        else:
-            print("Люди получающие такую зарплату отсутсвуют.")
+            print(f"Такую зарплату получает: {i[n]}")
+            t=True
+    if t == False: 
+        print("Люди, получающие такую зарплату, отсутсвуют.")
 def sorteerimine(i,p,v):
     N = len(p)
     if v == 1:
@@ -153,10 +155,45 @@ def erinev(i, p):
                 x = palgad.index(i)
                 nimi = inimesed[x]
                 print(f"{nimi} - {i}")
+def tulumaks(i, p):
+    summa = int(input("Введите зарплату: "))
+    if summa < 1200:
+        tul = (summa-500)*0.2
+        x = summa - tul
+    elif summa > 1200 <= 2100:
+        tul = 500-(500/850)*(summa-1200)
+        x = summa - tul
+    else:
+        x = summa*0.2
+    print(f"Нетто зарплата - {round(x,2)}")
+def sort_nimi_jargi(p,i,v):
+    N = len(p)
+    if v == 1:
+        for n in range (0, N):
+            for m in range (n, N):
+                if p[n]<p[m]:
+                    abi=p[n]
+                    p[n]=p[m]
+                    p[m]=abi
+                    abi=i[n]
+                    i[n]=i[m]
+                    i[m]=abi
+    else:
+        for n in range (0, N):
+            for m in range (n, N):
+                if p[n]>p[m]:
+                    abi=p[n]
+                    p[n]=p[m]
+                    p[m]=abi
+                    abi=i[n]
+                    i[n]=i[m]
+                    i[m]=abi
+
+    andmed_ekranile(i ,p)
 
 
 while 1:
-    valik=input("a - Ввод данных\ne -Показать данные \nk - Удаление\ns - Сортировка\nv - Проверка одинаковых зарплат\nmax - Максимальная зарплата\nmin - Минимальня зарплата\nkesk - Средняя зарплата\nn - Поиск по имени\ntop - Топ 3 богатых/бедных\nerinev - Вывод списка тех людей, кто получает больше/меньше чем указанная сумма\n")
+    valik=input("a - Ввод данных\ne -Показать данные \nk - Удаление\ns - Сортировка\nv - Проверка одинаковых зарплат\nmax - Максимальная зарплата\nmin - Минимальня зарплата\nkesk - Средняя зарплата\nn - Поиск по имени\ntop - Топ 3 богатых/бедных\nerinev - Вывод списка тех людей, кто получает больше/меньше чем указанная сумма\ntul - Зарплата с учетом налогов\nsort - Сортировка по имени\n")
     if valik.lower() == "a":
         inimesed,palgad=sisesta_andmed(inimesed,palgad)
     elif valik.lower() == "e":
@@ -174,10 +211,14 @@ while 1:
     elif valik.lower() == "n":
         nimi(inimesed, palgad)
     elif valik.lower() == "kesk":
-        keskmine(palgad)
+        keskmine(inimesed, palgad)
     elif valik.lower() == "top":
         topkolm(inimesed, palgad, int(input("1 - Топ богатых.\n2 - Топ бедных.\n")))
     elif valik.lower() == "erinev":
         erinev(inimesed, palgad)
+    elif valik.lower() == "tul":
+        tulumaks(inimesed,palgad)
+    elif valik.lower() == "sort":
+        sort_nimi_jargi(inimesed, palgad, int(input("1 - Сортировка от Я до А.\n2 - Сортировка от А до Я.\n")))
     else:
         break
