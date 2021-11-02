@@ -49,11 +49,16 @@ def minimum(i,p):
     print(f"Минимальную зарплату - {min_palk} получает - {kellel}.")
 def keskmine(p):
     summa = 0
-    n = len(palgad)
-    for p in palgad:
-        summa += p
-    summa = summa/n
-    print(f"Средняя зарплата: {kesk_palk}.")
+    for palk in p:
+        summa+=palk
+    summa/=len(p)
+    print(f"Средняя зарплата: {summa}")
+    for palk in p:
+        if palk==summa:
+            n=p.index(palk)
+            print(f"Получает: {i[n]}")
+        else:
+            print("Люди получающие такую зарплату отсутсвуют.")
 def sorteerimine(i,p,v):
     N = len(p)
     if v == 1:
@@ -134,10 +139,24 @@ def topkolm(i,p,v):
         for i in range(0,k,1):
             print(palgad[i], inimesed[i])
             print()
+def erinev(i, p):
+    number = int(input("Введите сумму: "))
+    usl = int(input("Больше суммы - 1\nМеньше суммы - 2\n"))
+    for i in palgad:
+        if usl == 1:
+            if i > number:
+                x = palgad.index(i)
+                nimi = inimesed[x]
+                print(f"{nimi} - {i}")
+        else:
+            if i < number:
+                x = palgad.index(i)
+                nimi = inimesed[x]
+                print(f"{nimi} - {i}")
 
 
 while 1:
-    valik=input("a - Ввод данных\ne -Показать данные \nk - Удаление\ns - Сортировка\nv - Проверка одинаковых зарплат\nmax - Максимальная зарплата\nmin - Минимальня зарплата\nkesk - Средняя зарплата\nn - Поиск по имени\ntop - Топ 3 богатых/бедных\n")
+    valik=input("a - Ввод данных\ne -Показать данные \nk - Удаление\ns - Сортировка\nv - Проверка одинаковых зарплат\nmax - Максимальная зарплата\nmin - Минимальня зарплата\nkesk - Средняя зарплата\nn - Поиск по имени\ntop - Топ 3 богатых/бедных\nerinev - Вывод списка тех людей, кто получает больше/меньше чем указанная сумма\n")
     if valik.lower() == "a":
         inimesed,palgad=sisesta_andmed(inimesed,palgad)
     elif valik.lower() == "e":
@@ -158,5 +177,7 @@ while 1:
         keskmine(palgad)
     elif valik.lower() == "top":
         topkolm(inimesed, palgad, int(input("1 - Топ богатых.\n2 - Топ бедных.\n")))
+    elif valik.lower() == "erinev":
+        erinev(inimesed, palgad)
     else:
         break
