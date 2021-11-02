@@ -1,8 +1,8 @@
 from random import *
 inimesed = ["A", "B", "C", "D", "E"]
-palgad = [3000, 3000, 1500, 1500, 2000]
+palgad = [3000, 3000, 1100, 1500, 2000]
 def sisesta_andmed(i,p):
-    #N = 4
+    N = 4
     for n in range(N):
         inimene = input("Введите имя: ")
         i.append(inimene)
@@ -30,15 +30,30 @@ def kustutamine(i,p):
         andmed_ekranile(i,p)
     return i,p
 def maksimum(i,p):
-    max_palk=palgad[0]
-    kellel=inimesed[0]
+    max_palk = palgad[0]
+    kellel = inimesed[0]
     for p in palgad:
-        if p>max_palk:
-            max_palk=p
-            i=palgad.index(max_palk)
-            kellel=inimesed[i]
+        if p > max_palk:
+            max_palk = p
+            i = palgad.index(max_palk)
+            kellel = inimesed[i]
     print(f"Максимальную зарплату - {max_palk} получает - {kellel}")
-    return max_palk, kellel
+def minimum(i,p):
+    min_palk = palgad[0]
+    kellel = inimesed[0]
+    for p in palgad:
+        if p < min_palk:
+            min_palk = p
+            i = palgad.index(min_palk)
+            kellel = inimesed[i]
+    print(f"Минимальную зарплату - {min_palk} получает - {kellel}.")
+def keskmine(p):
+    summa = 0
+    n = len(palgad)
+    for p in palgad:
+        summa += p
+    summa = summa/n
+    print(f"Средняя зарплата: {kesk_palk}.")
 def sorteerimine(i,p,v):
     N = len(p)
     if v == 1:
@@ -70,17 +85,59 @@ def vordsed_palgad(i, p):
     print(dublikatid)
     for palk in dublikatid:
         n = p.count(palk)
-        k=0
+        k=-1
         for j in range(n):
-            k = p.index(palk, j+k)
+            k = p.index(palk, k+1)
             nimi = i[k]
-            print(f"{palk} - получает {nimi}")
-    #for n in range(0, N):
-        #for m in range(n, N):
-            #if = p[n]==p[m]:
+            print(f"{palk} - получает {nimi}.")
+def nimi(i,p):
+    otsi_nimi = []
+    otsi_palk = []
+    palk_keda = 0
+    kes = input("Введите имя: ")
+    n = len(inimesed)
+    for j in range(n):
+        if inimesed[j] == kes:
+            palk_kes = palgad[j]
+            otsi_nimi.append(inimesed[j])
+            otsi_palk.append(palk_kes)
+        else:pass
+    for i in range(len(otsi_nimi)):
+            print(f"{otsi_nimi[i]} получает - {otsi_palk[i]}.")
+def topkolm(i,p,v):
+    N = len(p)
+    if v == 1:
+        for n in range (0, N):
+            for m in range (n, N):
+                if p[n]<p[m]:
+                    abi=p[n]
+                    p[n]=p[m]
+                    p[m]=abi
+                    abi=i[n]
+                    i[n]=i[m]
+                    i[m]=abi
+        k = 3
+        for i in range(0,k,1):
+            print(palgad[i], inimesed[i])
+            print()
+    else:
+        for n in range (0, N):
+            for m in range (n, N):
+                if p[n]>p[m]:
+                    abi=p[n]
+                    p[n]=p[m]
+                    p[m]=abi
+                    abi=i[n]
+                    i[n]=i[m]
+                    i[m]=abi
+        k = 3
+        for i in range(0,k,1):
+            print(palgad[i], inimesed[i])
+            print()
+
 
 while 1:
-    valik=input("a - Ввод данных\ne -Показать данные \nk - Удаление\ns - Сортировка\nv - Проверка одинаковых зарплат\nmax - Максимальная зарплата\n")
+    valik=input("a - Ввод данных\ne -Показать данные \nk - Удаление\ns - Сортировка\nv - Проверка одинаковых зарплат\nmax - Максимальная зарплата\nmin - Минимальня зарплата\nkesk - Средняя зарплата\nn - Поиск по имени\ntop - Топ 3 богатых/бедных\n")
     if valik.lower() == "a":
         inimesed,palgad=sisesta_andmed(inimesed,palgad)
     elif valik.lower() == "e":
@@ -92,6 +149,14 @@ while 1:
     elif valik.lower() == "v":
         vordsed_palgad(inimesed, palgad)
     elif valik.lower() == "max":
-        max_palk,kellel = maksimum(inimesed, palgad)
+        maksimum(inimesed, palgad)
+    elif valik.lower() == "min":
+        minimum(inimesed, palgad)
+    elif valik.lower() == "n":
+        nimi(inimesed, palgad)
+    elif valik.lower() == "kesk":
+        keskmine(palgad)
+    elif valik.lower() == "top":
+        topkolm(inimesed, palgad, int(input("1 - Топ богатых.\n2 - Топ бедных.\n")))
     else:
         break
