@@ -1,6 +1,6 @@
 from random import *
-inimesed = ["A", "B"]
-palgad = [2000,2000]
+inimesed = ["A", "B", "C", "D", "E"]
+palgad = [2000, 2000, 1500, 1500, 2000]
 N = 4
 def sisesta_andmed(i,p):
     for n in range(N):
@@ -59,7 +59,15 @@ def sorteerimine(i,p,v):
 def vordsed_palgad(i, p):
     N = len(p)
     dublikatid = [ x for x in palgad if palgad.count(x)>1 ]
-    print(list(set(dublikatid)))
+    dublikatid = (list(set(dublikatid)))
+    print(dublikatid)
+    for palk in dublikatid:
+        n = p.count(palk)
+        k=0
+        for j in range(n):
+            k = p.index(palk, j+k)
+            nimi = i[k]
+            print(f"{palk} - получает {nimi}")
     #for n in range(0, N):
         #for m in range(n, N):
             #if = p[n]==p[m]:
