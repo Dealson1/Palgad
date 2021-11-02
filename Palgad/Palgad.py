@@ -1,8 +1,8 @@
 from random import *
 inimesed = ["A", "B", "C", "D", "E"]
-palgad = [2000, 2000, 1500, 1500, 2000]
-N = 4
+palgad = [3000, 3000, 1500, 1500, 2000]
 def sisesta_andmed(i,p):
+    #N = 4
     for n in range(N):
         inimene = input("Введите имя: ")
         i.append(inimene)
@@ -29,9 +29,16 @@ def kustutamine(i,p):
         p.pop(abi_list[j-1])
         andmed_ekranile(i,p)
     return i,p
-#def suurim_palk(i,p):
-    #surim=max(p)
-    #count() for abi_leht p.index() ->i.index() andmed_ekranile(abi_list)
+def maksimum(i,p):
+    max_palk=palgad[0]
+    kellel=inimesed[0]
+    for p in palgad:
+        if p>max_palk:
+            max_palk=p
+            i=palgad.index(max_palk)
+            kellel=inimesed[i]
+    print(f"Максимальную зарплату - {max_palk} получает - {kellel}")
+    return max_palk, kellel
 def sorteerimine(i,p,v):
     N = len(p)
     if v == 1:
@@ -73,7 +80,7 @@ def vordsed_palgad(i, p):
             #if = p[n]==p[m]:
 
 while 1:
-    valik=input("a - Ввод данных\ne -Показать данные \nk - Удаление\ns - Сортировка\nv - Проверка одинаковой зарплат\n")
+    valik=input("a - Ввод данных\ne -Показать данные \nk - Удаление\ns - Сортировка\nv - Проверка одинаковых зарплат\nmax - Максимальная зарплата\n")
     if valik.lower() == "a":
         inimesed,palgad=sisesta_andmed(inimesed,palgad)
     elif valik.lower() == "e":
@@ -84,5 +91,7 @@ while 1:
         sorteerimine(inimesed, palgad, int(input("1 - Сортировка по убыванию.\n2 - Сортировка по возростанию.\n")))
     elif valik.lower() == "v":
         vordsed_palgad(inimesed, palgad)
+    elif valik.lower() == "max":
+        max_palk,kellel = maksimum(inimesed, palgad)
     else:
         break
