@@ -61,7 +61,16 @@ def keskmine(i, p):
             t=True
     if t == False: 
         print("Люди, получающие такую зарплату, отсутсвуют.")
-def sorteerimine(i, p, v):
+def sorteerimine(i: list, p: list, v: int):
+    '''Soortetimine pagade järgi.
+
+    Tagastame inimeste ja palgade listid teise funktsiooni kasutamisel.
+
+    :param list i: Inimeste järjend.
+    :param list p: Palgade järjend.
+    :param int v: soorterimine tüüp.
+    :rtype list, list
+    '''
     N = len(p)
     if v == 1:
         for n in range (0, N):
